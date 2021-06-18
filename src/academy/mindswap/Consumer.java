@@ -13,7 +13,7 @@ public class Consumer implements Runnable{
     public void run() {
         synchronized (queue){
             for (int consumedElement = 0; consumedElement < consumedElements; consumedElement++) {
-                if(queue.getSize() == 0){
+                while(queue.getSize() == 0){
                     //System.out.println(Thread.currentThread().getName() + " Elements need to be produced in order to consume more elements");
                     try {
                         System.out.println(Thread.currentThread().getName() + " waiting");
@@ -22,11 +22,8 @@ public class Consumer implements Runnable{
                          e.printStackTrace();
                     }
                 }
-
-                if(queue.getSize() > 0){
                     System.out.println( Thread.currentThread().getName() + " consumed "+  queue.poll());
                     queue.notify();
-                }
             }
 
             //

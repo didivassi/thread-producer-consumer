@@ -14,7 +14,7 @@ public class Producer implements Runnable{
         synchronized (queue){
 
             for (int producedElement = 0; producedElement < elementsToProduce; producedElement++) {
-                if(queue.getLimit() < queue.getSize() + 1){
+                while(queue.getLimit() < queue.getSize() ){
                     System.out.println(Thread.currentThread().getName() + " Elements need to be consumed in order to produce more elements");
                     try {
                         System.out.println(Thread.currentThread().getName() + " waiting");
